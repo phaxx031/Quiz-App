@@ -61,11 +61,10 @@ const STORE = {
 };
 
 const startButton = document.getElementById('start-btn');
-const nextButton = document.getElementById('next-btn');
+const submitButton = document.getElementById('submit-btn');
 const questionContainerElement = document.getElementById('question-container');
-
 const questionElement = document.getElementById('question');
-const answerButtonsElement = document.getElementById('answer-buttons');
+const answerRadioElement = document.getElementById('answer-radio');
 
 $('#question').text(STORE.questions[0].question);
 $('#first_answer').text(STORE.questions[0].answers[0]);
@@ -84,43 +83,71 @@ function startQuiz() {
   });
 }
 
-function setNextQuestion() {
+function answerQuestion() {
+    $('#submit-btn').submit(function(event) {
+      e.preventDefault();
+      console.log('Submitted');
+      if (e.target.querySelector('input[type=radio]:checked') == questions.correctAnswer) {
+      //i am now on if we click the button, how do we pop up a confirmation message on if selection was right or wrong
+      } 
+    });
+  }
+
+/*function setNextQuestion() {
   resetState()
   showQuestion(currentQuestionIndex)
 }
 
-// the function below prolly needs to be altered since in the video he is using buttons and we are using radio 18:40
-function showQuestion(question) {
+function answerQuestion() {
   questionElement.innerText = question.question
   question.answers.forEach(answer => {
-    const button = document.createElement('button')
-    button.innerText = answer.text
-    button.classList.add('btn')
+    if (e.target.querySelector('input[type=radio]:checked') == questions.correctAnswer) {
+    }
+    $('#submit-btn').submit()
+      event.preventDefault();
+      answerRadioElement.appendChild
+  })
+}
+
+function resetState() {
+  startButton.classList.add('hide')
+  while (answerRadioElement.firstChild) {
+    answerRadioElement.removeChild
+    (answerRadioElement.firstChild)
+  }
+}
+
+// the function below prolly needs to be altered since in the video he is using buttons and we are using radio 18:40
+
+/*function showQuestion(question) {
+  questionElement.innerText = question.question
+  question.answers.forEach(answer => {
     // the problem/issue is below this
-    if (questions.correctAnswer == questions.correctAnswer) {
+    if (e.target.querySelector('input[type=radio]:checked') == questions.correctAnswer) {
       button.dataset.correct = answer.correct
     }
     button.addEventListener('click', selectAnswer)
     answerButtonsElement.appendChild(button)
   })
-}
+}*/
 
-function resetState() {
+/*function resetState() {
   nextButton.classList.add('hide')
   while (answerButtonsElement.firstChild) {
     answerButtonsElement.removeChild(answerButtonsElement.firstChild)
   }
-}
+}*/
 
-function selectAnswer(e) {
+/*function selectAnswer(e) {
   const selectedButton = e.target
   const correct = selectedButton.dataset.correct
   setStatusClass(document.body, correct)
 
-}
+}*/
 
 function init() {
   startQuiz();
+  answerQuestion();
 }
 $(init);
 
