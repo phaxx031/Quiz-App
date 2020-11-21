@@ -19,26 +19,29 @@
   </header>
 
   <main>
+    <div class="quiz-container">
+      <div id="quiz"></div>
+    </div>
     <div class="container">
       <div id="question-container" class="hide"></div>
         <div id="question" class="border2 hide">Question</div>
-        <div id="answer-buttons" class="btn-grid"></div>
-        <div id="answer-radio" class="radio-grid"></div>
-          <form>
+        <div id="answer-radio" class="btn-grid"></div>
+          <form class="hide" id="form">
             <ul>
               <li><input type="radio" name="choice" value="a"><span id="first_answer"></span></li>
               <li><input type="radio" name="choice" value="b"><span id="second_answer"></span></li>
               <li><input type="radio" name="choice" value="c"><span id="third_answer"></span></li>
               <li><input type="radio" name="choice" value="d"><span id="fourth_answer"></span></li>
             </ul>
+            <input id="submit-btn" type="submit" class="submit-btn btn hide" value="Submit">
           </form>
       <div class="border">
         <p>Click the start button below if you ready to take the ultimate video game quiz!</p>
       </div>
       <div class="controls">
-        <button id="start-btn" class="start-btn btn>">Start</button>
-        <button id="next-btn" class="next-btn btn hide">Next</button>
+        <button id="start-btn" class="start-btn btn">Start</button>
       </div>
+      <div id="results"></div>
     </div>
   </main>
 
@@ -47,3 +50,5 @@
 </body>
 
 </html>
+
+<!--tomorrow make this a UL and add the radio attibute into the list-->

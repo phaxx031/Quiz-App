@@ -1,8 +1,4 @@
-/**
- * Example store structure
- */
 const STORE = {
-  // 5 or more questions are required
   questions: [
     {
       question: 'What is the best selling video game console of all time?',
@@ -57,14 +53,12 @@ const STORE = {
   ],
   quizStarted: false,
   questionNumber: 0,
-  score: 0
 };
 
+const quizContainer = document.getElementById('quiz');
+const resultsContainer = document.getElementById('results');
+const submitButton = document.getElementById('submit-btn');
 const startButton = document.getElementById('start-btn');
-const nextButton = document.getElementById('next-btn');
-const questionContainerElement = document.getElementById('question-container');
-const questionElement = document.getElementById('question');
-const answerButtonsElement = document.getElementById('answer-buttons');
 
 $('#question').text(STORE.questions[0].question);
 $('#first_answer').text(STORE.questions[0].answers[0]);
@@ -72,102 +66,35 @@ $('#second_answer').text(STORE.questions[0].answers[1]);
 $('#third_answer').text(STORE.questions[0].answers[2]);
 $('#fourth_answer').text(STORE.questions[0].answers[3]);
 
-startButton.addEventListener('click', startQuiz);
 
-let currentQuestionIndex;
 
-function startQuiz() {
-  console.log('started');
-  startButton.classList.add('hide');
-  questionContainerElement.classList.remove('hide');
-  currentQuestionIndex = 0;
-  questionContainerElement.classList.remove('hide');
-  setNextQuestion();
-}
-
-function setNextQuestion() {
-  resetState()
-  showQuestion(currentQuestionIndex)
-}
-
-function showQuestion(question) {
-  questionElement.innerText = question.question;
-  questions.answers.forEach(answer => {
-    if (questions.correctAnswer) {
-      button.dataset.correct = answer.correct;
-    }
-    button.addEventListener('click', selectAnswer);
-    answerButtonsElement.appendChild(button);
-  })
-}
-
-function resetState() {
-  nextButton.classList.add('hide')
-  while (answerButtonsElement.firstChild) {
-    answerButtonsElement.removeChild(answerButtonsElement.firstChild)
+  function startQuiz() {
+    $('#start-btn').click(function(event) {
+      console.log('Started');
+      $('#start-btn').hide();
+      $('.border').hide();
+      $('.hide').toggle();
+    });
   }
-}
 
-//function selectAnswer(e) {
-  const selectedButton = e.target
-  const correct = selectedButton.dataset.correct
-  setStatusClass(document.body, correct)
-
-}
-
-/*function startQuiz() {
-  $('#start-btn').click(function(event) {
-    console.log('Started');
-    $('#start-btn').hide();
-    $('.border').hide();
-    $('.hide').toggle();
-  });
-}
-
-// the function below prolly needs to be altered since in the video he is using buttons and we are using radio 18:40
-function showQuestion(question) {
-  questionElement.innerText = question.question
-  question.answers.forEach(answer => {
-    const button = document.createElement('button')
-    button.innerText = answer.text
-    button.classList.add('btn')
-    // the problem/issue is below this
-    if (questions.correctAnswer == questions.correctAnswer) {
-      button.dataset.correct = answer.correct
+  function answerQuestion() {
+    let questionNumber = 0;
+    let score = 0;
+      $('form').submit(function(event) {
+        event.preventDefault();
+        console.log('Submitted');
+        if ($('input[type=radio]:checked').siblings().text() == STORE.questions[questionNumber].correctAnswer) {
+          alert("That's correct!");
+          score++;
+        } else {
+          alert('You selected the incorrect answer.');
+        }
+      });
     }
-    button.addEventListener('click', selectAnswer)
-    answerButtonsElement.appendChild(button)
-  })
-}
+  
 
-/*function init() {
-  startQuiz();
-}
-$(init);*/
-
-/**
- * 
- * Technical requirements:
- * 
- * Your app should include a render() function, that regenerates the view each time the store is updated. 
- * See your course material and access support for more details.
- *
- * NO additional HTML elements should be added to the index.html file.
- *
- * You may add attributes (classes, ids, etc) to the existing HTML elements, or link stylesheets or additional scripts if necessary
- *
- * SEE BELOW FOR THE CATEGORIES OF THE TYPES OF FUNCTIONS YOU WILL BE CREATING 👇
- * 
- */
-
-/********** TEMPLATE GENERATION FUNCTIONS **********/
-
-// These functions return HTML templates
-
-/********** RENDER FUNCTION(S) **********/
-
-// This function conditionally replaces the contents of the <main> tag based on the state of the store
-
-/********** EVENT HANDLER FUNCTIONS **********/
-
-// These functions handle events (submit, click, etc)
+  function init() {
+    startQuiz();
+    answerQuestion();
+  }
+  $(init);
