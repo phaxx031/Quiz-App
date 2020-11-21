@@ -61,10 +61,10 @@ const STORE = {
 };
 
 const startButton = document.getElementById('start-btn');
-const submitButton = document.getElementById('submit-btn');
+const nextButton = document.getElementById('next-btn');
 const questionContainerElement = document.getElementById('question-container');
 const questionElement = document.getElementById('question');
-const answerRadioElement = document.getElementById('answer-radio');
+const answerButtonsElement = document.getElementById('answer-buttons');
 
 $('#question').text(STORE.questions[0].question);
 $('#first_answer').text(STORE.questions[0].answers[0]);
@@ -72,9 +72,50 @@ $('#second_answer').text(STORE.questions[0].answers[1]);
 $('#third_answer').text(STORE.questions[0].answers[2]);
 $('#fourth_answer').text(STORE.questions[0].answers[3]);
 
-let currentQuestionIndex
+startButton.addEventListener('click', startQuiz);
+
+let currentQuestionIndex;
 
 function startQuiz() {
+  console.log('started');
+  startButton.classList.add('hide');
+  questionContainerElement.classList.remove('hide');
+  currentQuestionIndex = 0;
+  questionContainerElement.classList.remove('hide');
+  setNextQuestion();
+}
+
+function setNextQuestion() {
+  resetState()
+  showQuestion(currentQuestionIndex)
+}
+
+function showQuestion(question) {
+  questionElement.innerText = question.question;
+  questions.answers.forEach(answer => {
+    if (questions.correctAnswer) {
+      button.dataset.correct = answer.correct;
+    }
+    button.addEventListener('click', selectAnswer);
+    answerButtonsElement.appendChild(button);
+  })
+}
+
+function resetState() {
+  nextButton.classList.add('hide')
+  while (answerButtonsElement.firstChild) {
+    answerButtonsElement.removeChild(answerButtonsElement.firstChild)
+  }
+}
+
+//function selectAnswer(e) {
+  const selectedButton = e.target
+  const correct = selectedButton.dataset.correct
+  setStatusClass(document.body, correct)
+
+}
+
+/*function startQuiz() {
   $('#start-btn').click(function(event) {
     console.log('Started');
     $('#start-btn').hide();
@@ -83,73 +124,26 @@ function startQuiz() {
   });
 }
 
-function answerQuestion() {
-    $('#submit-btn').submit(function(event) {
-      e.preventDefault();
-      console.log('Submitted');
-      if (e.target.querySelector('input[type=radio]:checked') == questions.correctAnswer) {
-      //i am now on if we click the button, how do we pop up a confirmation message on if selection was right or wrong
-      } 
-    });
-  }
-
-/*function setNextQuestion() {
-  resetState()
-  showQuestion(currentQuestionIndex)
-}
-
-function answerQuestion() {
-  questionElement.innerText = question.question
-  question.answers.forEach(answer => {
-    if (e.target.querySelector('input[type=radio]:checked') == questions.correctAnswer) {
-    }
-    $('#submit-btn').submit()
-      event.preventDefault();
-      answerRadioElement.appendChild
-  })
-}
-
-function resetState() {
-  startButton.classList.add('hide')
-  while (answerRadioElement.firstChild) {
-    answerRadioElement.removeChild
-    (answerRadioElement.firstChild)
-  }
-}
-
 // the function below prolly needs to be altered since in the video he is using buttons and we are using radio 18:40
-
-/*function showQuestion(question) {
+function showQuestion(question) {
   questionElement.innerText = question.question
   question.answers.forEach(answer => {
+    const button = document.createElement('button')
+    button.innerText = answer.text
+    button.classList.add('btn')
     // the problem/issue is below this
-    if (e.target.querySelector('input[type=radio]:checked') == questions.correctAnswer) {
+    if (questions.correctAnswer == questions.correctAnswer) {
       button.dataset.correct = answer.correct
     }
     button.addEventListener('click', selectAnswer)
     answerButtonsElement.appendChild(button)
   })
-}*/
-
-/*function resetState() {
-  nextButton.classList.add('hide')
-  while (answerButtonsElement.firstChild) {
-    answerButtonsElement.removeChild(answerButtonsElement.firstChild)
-  }
-}*/
-
-/*function selectAnswer(e) {
-  const selectedButton = e.target
-  const correct = selectedButton.dataset.correct
-  setStatusClass(document.body, correct)
-
-}*/
-
-function init() {
-  startQuiz();
-  answerQuestion();
 }
-$(init);
+
+/*function init() {
+  startQuiz();
+}
+$(init);*/
 
 /**
  * 
