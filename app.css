@@ -83,6 +83,18 @@ h3 {
   display: none;
 }
 
+.red-containerbackground {
+  background-color: #FF4500;
+}
+
+body {
+  background-color: #FFD700;
+}
+
+.button1 {
+  background-color: #F4A460;
+}
+
 .slide{
   position: absolute;
   left: 0px;

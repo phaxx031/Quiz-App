@@ -53,6 +53,7 @@ const STORE = {
   ],
   quizStarted: false,
   questionNumber: 0,
+  score: 0,
 };
 
 const quizContainer = document.getElementById('quiz');
@@ -60,19 +61,22 @@ const resultsContainer = document.getElementById('results');
 const submitButton = document.getElementById('submit-btn');
 const startButton = document.getElementById('start-btn');
 
-$('#question').text(STORE.questions[0].question);
-$('#first_answer').text(STORE.questions[0].answers[0]);
-$('#second_answer').text(STORE.questions[0].answers[1]);
-$('#third_answer').text(STORE.questions[0].answers[2]);
-$('#fourth_answer').text(STORE.questions[0].answers[3]);
-
-
+function setTextPerQuestion(questionNumber) {
+  $('#question').text(STORE.questions[questionNumber].question);
+  $('#first_answer').text(STORE.questions[questionNumber].answers[0]);
+  $('#second_answer').text(STORE.questions[questionNumber].answers[1]);
+  $('#third_answer').text(STORE.questions[questionNumber].answers[2]);
+  $('#fourth_answer').text(STORE.questions[questionNumber].answers[3]);
+  $('#quiz_score').text(STORE.score);
+}
 
   function startQuiz() {
+    let questionNumber = 0;
     $('#start-btn').click(function(event) {
       console.log('Started');
       $('#start-btn').hide();
       $('.border').hide();
+      setTextPerQuestion(questionNumber);
       $('.hide').toggle();
     });
   }
@@ -89,12 +93,16 @@ $('#fourth_answer').text(STORE.questions[0].answers[3]);
         } else {
           alert('You selected the incorrect answer.');
         }
+        questionNumber++;
+        setTextPerQuestion(questionNumber);
       });
     }
-  
 
   function init() {
     startQuiz();
     answerQuestion();
+    setTextPerQuestion();
   }
   $(init);
+
+  // now keep track of score and display the final score at the end in addition to keeping track of score per question and add CSS

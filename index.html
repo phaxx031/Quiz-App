@@ -13,18 +13,19 @@
 
 <body>
   <header>
-    <section class="text-centered">
+    <section class="text-centered red-containerbackground">
       <h1>Video Game Quiz</h1>
     </section>
   </header>
 
   <main>
+    <h2 id="quiz-score"></h2>
     <div class="quiz-container">
       <div id="quiz"></div>
     </div>
     <div class="container">
       <div id="question-container" class="hide"></div>
-        <div id="question" class="border2 hide">Question</div>
+        <div id="question" class="border2 red-containerbackground hide">Question</div>
         <div id="answer-radio" class="btn-grid"></div>
           <form class="hide" id="form">
             <ul>
@@ -33,13 +34,13 @@
               <li><input type="radio" name="choice" value="c"><span id="third_answer"></span></li>
               <li><input type="radio" name="choice" value="d"><span id="fourth_answer"></span></li>
             </ul>
-            <input id="submit-btn" type="submit" class="submit-btn btn hide" value="Submit">
+            <input id="submit-btn" type="submit" class="submit-btn btn button1 hide" value="Submit">
           </form>
-      <div class="border">
+      <div class="border text-centered red-containerbackground">
         <p>Click the start button below if you ready to take the ultimate video game quiz!</p>
       </div>
-      <div class="controls">
-        <button id="start-btn" class="start-btn btn">Start</button>
+      <div class="controls text-centered">
+        <button id="start-btn" class="start-btn btn button1">Start</button>
       </div>
       <div id="results"></div>
     </div>
