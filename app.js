@@ -78,6 +78,7 @@ function setTextPerQuestion(questionNumber) {
       $('.border').hide();
       setTextPerQuestion(questionNumber);
       $('.hide').toggle();
+      //unhide the score which can be h2 e.g. 0 out of 5 correct, question 1 of 5
     });
   }
 
