@@ -61,7 +61,7 @@ const resultsContainer = document.getElementById('results');
 const submitButton = document.getElementById('submit-btn');
 const startButton = document.getElementById('start-btn');
 
-function setTextPerQuestion() {
+function render() {
   $('#question').text(STORE.questions[STORE.questionNumber].question);
   $('#first_answer').text(STORE.questions[STORE.questionNumber].answers[0]);
   $('#second_answer').text(STORE.questions[STORE.questionNumber].answers[1]);
@@ -80,22 +80,31 @@ function setTextPerQuestion() {
   function handleSubmit() {
     $('form').submit(function(event) {
       event.preventDefault();
-      $('#quiz-score span').text(STORE.score);
       console.log('Submitted');
       if ($('input[type=radio]:checked').siblings().text() == STORE.questions[STORE.questionNumber].correctAnswer) {
-        alert("That's correct!");
         STORE.score++;
-      } else {
-        alert('You selected the incorrect answer.');
-      }
-      showNextQuestion();
-    });
+        setScoreText();
+        setTimeout(function() {
+          alert("That's correct!");
+        }, 100);
+        } else {
+          alert('You selected the incorrect answer.');
+        }
+          setTimeout(function() {
+            showNextQuestion();
+            $('input[type=radio]:checked').prop('checked', false);
+          }, 100);
+          });
+        }
+
+  function setScoreText() {
+    $('#quiz-score span').text(STORE.score);
   }
 
   function showNextQuestion() {
     STORE.questionNumber++;
     if (STORE.questionNumber < STORE.questions.length) {
-      setTextPerQuestion();
+      render();
     } else {
       setQuizResults();
       optionalRefreshQuiz();
@@ -113,15 +122,16 @@ function setTextPerQuestion() {
     // assumed to be true anyways, "confirm" in yellow above pops up an alert for user to confirm or decline
       STORE.score = 0;
       STORE.questionNumber = 0;
+      $('#quiz-score span').text(STORE.score);
       $('#start-quiz-container').show();
       $('#question-container').hide();
-      setTextPerQuestion();
+      render();
     }
   }
 
   function init() {
     startQuiz();
     handleSubmit();
-    setTextPerQuestion(0);
+    render();
   }
   $(init);
