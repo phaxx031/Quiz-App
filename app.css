@@ -79,7 +79,7 @@ h3 {
 
 /* The above is formatting stuff, below is more of colors and display stuff*/
 
-.hide {
+#question-container {
   display: none;
 }
 
@@ -95,19 +95,5 @@ body {
   background-color: #F4A460;
 }
 
-.slide{
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-.active-slide{
-  opacity: 1;
-  z-index: 2;
-}
-.quiz-container{
-  position: relative;
-}
+
+/* how to style radio buttons??*/

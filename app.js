@@ -61,49 +61,67 @@ const resultsContainer = document.getElementById('results');
 const submitButton = document.getElementById('submit-btn');
 const startButton = document.getElementById('start-btn');
 
-function setTextPerQuestion(questionNumber) {
-  $('#question').text(STORE.questions[questionNumber].question);
-  $('#first_answer').text(STORE.questions[questionNumber].answers[0]);
-  $('#second_answer').text(STORE.questions[questionNumber].answers[1]);
-  $('#third_answer').text(STORE.questions[questionNumber].answers[2]);
-  $('#fourth_answer').text(STORE.questions[questionNumber].answers[3]);
-  $('#quiz_score').text(STORE.score);
+function setTextPerQuestion() {
+  $('#question').text(STORE.questions[STORE.questionNumber].question);
+  $('#first_answer').text(STORE.questions[STORE.questionNumber].answers[0]);
+  $('#second_answer').text(STORE.questions[STORE.questionNumber].answers[1]);
+  $('#third_answer').text(STORE.questions[STORE.questionNumber].answers[2]);
+  $('#fourth_answer').text(STORE.questions[STORE.questionNumber].answers[3]);
 }
 
   function startQuiz() {
-    let questionNumber = 0;
     $('#start-btn').click(function(event) {
       console.log('Started');
-      $('#start-btn').hide();
-      $('.border').hide();
-      setTextPerQuestion(questionNumber);
-      $('.hide').toggle();
-      //unhide the score which can be h2 e.g. 0 out of 5 correct, question 1 of 5
+      $('#start-quiz-container').hide();
+      $('#question-container').show();
     });
   }
 
-  function answerQuestion() {
-    let questionNumber = 0;
-    let score = 0;
-      $('form').submit(function(event) {
-        event.preventDefault();
-        console.log('Submitted');
-        if ($('input[type=radio]:checked').siblings().text() == STORE.questions[questionNumber].correctAnswer) {
-          alert("That's correct!");
-          score++;
-        } else {
-          alert('You selected the incorrect answer.');
-        }
-        questionNumber++;
-        setTextPerQuestion(questionNumber);
-      });
+  function handleSubmit() {
+    $('form').submit(function(event) {
+      event.preventDefault();
+      $('#quiz-score span').text(STORE.score);
+      console.log('Submitted');
+      if ($('input[type=radio]:checked').siblings().text() == STORE.questions[STORE.questionNumber].correctAnswer) {
+        alert("That's correct!");
+        STORE.score++;
+      } else {
+        alert('You selected the incorrect answer.');
+      }
+      showNextQuestion();
+    });
+  }
+
+  function showNextQuestion() {
+    STORE.questionNumber++;
+    if (STORE.questionNumber < STORE.questions.length) {
+      setTextPerQuestion();
+    } else {
+      setQuizResults();
+      optionalRefreshQuiz();
     }
+  }
+
+  function setQuizResults() {
+    alert(`You scored ${STORE.score} out of 5`);
+  }
+
+  function optionalRefreshQuiz() {
+    let optionalRefreshQuiz = confirm('Do you want to take the Quiz again?');
+    if (optionalRefreshQuiz) {
+    // generally we could do that if optionalRefreshQuiz is true then it'll reset but this is a shortcut because if they click ok then it's
+    // assumed to be true anyways, "confirm" in yellow above pops up an alert for user to confirm or decline
+      STORE.score = 0;
+      STORE.questionNumber = 0;
+      $('#start-quiz-container').show();
+      $('#question-container').hide();
+      setTextPerQuestion();
+    }
+  }
 
   function init() {
     startQuiz();
-    answerQuestion();
-    setTextPerQuestion();
+    handleSubmit();
+    setTextPerQuestion(0);
   }
   $(init);
-
-  // now keep track of score and display the final score at the end in addition to keeping track of score per question and add CSS

@@ -19,30 +19,30 @@
   </header>
 
   <main>
-    <h2 id="quiz-score"></h2>
-    <div class="quiz-container">
-      <div id="quiz"></div>
+    <div id="question-container">
+      <h2 id="quiz-score">Score: <span></span> out of 5</h2>
+      <div id="question" class="border2 red-containerbackground hide"></div>
+      <form class="hide" id="form">
+        <ul>
+          <li><input type="radio" name="choice" value="a"><span id="first_answer"></span></li>
+          <li><input type="radio" name="choice" value="b"><span id="second_answer"></span></li>
+          <li><input type="radio" name="choice" value="c"><span id="third_answer"></span></li>
+          <li><input type="radio" name="choice" value="d"><span id="fourth_answer"></span></li>
+        </ul>
+        <input id="submit-btn" type="submit" class="submit-btn btn button1" value="Submit">
+      </form>
     </div>
-    <div class="container">
-      <div id="question-container" class="hide"></div>
-        <div id="question" class="border2 red-containerbackground hide">Question</div>
-        <div id="answer-radio" class="btn-grid"></div>
-          <form class="hide" id="form">
-            <ul>
-              <li><input type="radio" name="choice" value="a"><span id="first_answer"></span></li>
-              <li><input type="radio" name="choice" value="b"><span id="second_answer"></span></li>
-              <li><input type="radio" name="choice" value="c"><span id="third_answer"></span></li>
-              <li><input type="radio" name="choice" value="d"><span id="fourth_answer"></span></li>
-            </ul>
-            <input id="submit-btn" type="submit" class="submit-btn btn button1 hide" value="Submit">
-          </form>
+   <!--Claudio separated these in two above and below this green comment so that when the page is refresh it is not re-doing
+      what is above and doing what is below, instead of doing individual things like a single button, claudio is hiding and unhiding
+      entire sections by making it a container in JS startquiz, e.g. question-container as opposed to just start-button hide,
+      this html to 2 sections-->
+    <div id="start-quiz-container">
       <div class="border text-centered red-containerbackground">
         <p>Click the start button below if you ready to take the ultimate video game quiz!</p>
       </div>
       <div class="controls text-centered">
         <button id="start-btn" class="start-btn btn button1">Start</button>
       </div>
-      <div id="results"></div>
     </div>
   </main>
 
@@ -51,5 +51,3 @@
 </body>
 
 </html>
-
-<!--tomorrow make this a UL and add the radio attibute into the list-->
